@@ -61,8 +61,8 @@
         "rotation_in_degrees":19.4115
     },
     "lucerne_2025":{
-        "datapath": "/storage/alplakes_test/lucerne_100m_2025_01/outputs",
-        "gridpath": "/storage/alplakes_test/lucerne_100m_2025_01/grid_metadata",
+        "datapath": "/storage/alplakes_test/lucerne_100m_2025/outputs",
+        "gridpath": "/storage/alplakes_test/lucerne_100m_2025/grid_metadata",
         "cropped_nc_folder": "",
         "ref_date": "2025-01-01 0:0:0",
         "dt": 25,
