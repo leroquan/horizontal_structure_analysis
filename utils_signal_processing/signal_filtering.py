@@ -139,7 +139,7 @@ def filter_signal_xarray(data, btype='bandpass', time_dim='time', period_cutoff_
         output_core_dims=[[time_dim]],
         output_dtypes=[np.float64],
         dask='parallelized' if hasattr(data.data, 'chunks') else 'forbidden',
-        vectorize=True,
+        vectorize=False,
         kwargs={}
     )
 
