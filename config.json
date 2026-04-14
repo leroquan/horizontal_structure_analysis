@@ -52,11 +52,11 @@
       "endian": ">"
     },
     "geneva_2025":{
-        "datapath": "/storage/alplakes_test/geneva_200m_2025_rivers/run",
-        "gridpath": "/home/leroquan@eawag.wroot.emp-eaw.ch/work_space/geneva_200m_2025/run",
+        "datapath": "/storage/alplakes_test/geneva_100m_2025/outputs",
+        "gridpath": "/storage/alplakes_test/geneva_100m_2025/grid_metadata",
         "cropped_nc_folder": "",
         "ref_date": "2025-01-01 0:0:0",
-        "dt": 15,
+        "dt": 10,
         "endian": ">",
         "rotation_in_degrees":19.4115
     },
@@ -68,6 +68,15 @@
         "dt": 25,
         "endian": ">",
         "rotation_in_degrees":-16.26020470831196
+    },
+    "neuchatel_2025":{
+        "datapath": "/storage/alplakes_test/neuchatel_100m_2025/outputs",
+        "gridpath": "/storage/alplakes_test/neuchatel_100m_2025/grid_metadata",
+        "cropped_nc_folder": "",
+        "ref_date": "2025-01-01 0:0:0",
+        "dt": 7,
+        "endian": ">",
+        "rotation_in_degrees":40
     }
   }
 }
