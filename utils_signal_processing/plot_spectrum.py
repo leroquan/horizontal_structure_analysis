@@ -9,8 +9,8 @@ def custom_formatter(x, pos):
     return f'{x:.1f}'
 
 
-def plot_freq_spectrum(xr_fft, var_name: str, depth: float, m_segm: float, y_lim_min=1e-9, x_lim_min=0.01e-4, fontsize=16):
-    fig, ax = plt.subplots(1, figsize=(15, 6))
+def plot_freq_spectrum(xr_fft, var_name: str, depth: float, l_segm: float, y_lim_min=1e-9, x_lim_min=0.01e-4, fontsize=16):
+    fig, ax = plt.subplots(1, figsize=(8, 5))
     # Plot the mean amplitude spectrum
     xr_fft.amp_mean.plot(ax=ax)
 
@@ -70,6 +70,6 @@ def plot_freq_spectrum(xr_fft, var_name: str, depth: float, m_segm: float, y_lim
     plt.setp(ax.get_yticklabels(), fontsize=fontsize)
     plt.setp(secax.get_xticklabels(), fontsize=fontsize)
 
-    plt.title('{} - Depth:{}m - Segments for FFT:{}'.format(var_name,depth,m_segm), fontsize=fontsize+2)
+    plt.title('{} - Depth:{}m - Segments for FFT:{}'.format(var_name,depth,l_segm/len(xr_fft.amp_mean)), fontsize=fontsize+2)
 
     return fig,ax
