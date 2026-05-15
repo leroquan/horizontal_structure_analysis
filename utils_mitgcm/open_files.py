@@ -1,6 +1,6 @@
 import xmitgcm as xm
 import json
-import os
+import numpy as np
 import socket
 
 
@@ -43,3 +43,22 @@ def open_mitgcm_ds_from_config(config_path, model):
     endian = mitgcm_config['endian']
 
     return mitgcm_config, open_mitgcm_ds(datapath, gridpath, ref_date, dt_mitgcm_results, endian)
+
+
+def align_coordinates(ds):
+    horizontal_resolution = ds.dxC.isel(XG=100, YC=40).values
+    ds['YG'] = np.arange(0, len(ds['YG'])) * horizontal_resolution
+    ds['XG'] = np.arange(0, len(ds['XG'])) * horizontal_resolution
+    ds['YC'] = np.arange(1, len(ds['YC'])+1) * horizontal_resolution - horizontal_resolution/2
+    ds['XC'] = np.arange(1, len(ds['XC'])+1) * horizontal_resolution - horizontal_resolution/2
+
+    aligned_u = ds.UVEL.rename({'XG':'XC'})
+    aligned_u['XC'] = ds['XC']
+
+    aligned_v = ds.VVEL.rename({'YG':'YC'})
+    aligned_v['YC'] = ds['YC']
+
+    aligned_w = ds.WVEL.rename({'Zl':'Z'})
+    aligned_w['Z'] = ds['Z']
+
+    return ds, aligned_u, aligned_v, aligned_w
