@@ -77,6 +77,15 @@
         "dt": 7,
         "endian": ">",
         "rotation_in_degrees":40
+    },
+    "neuchatel_EOF":{
+        "datapath": "/storage/alplakes_test/neuchatel_100m_EOF_synthetic/outputs",
+        "gridpath": "/storage/alplakes_test/neuchatel_100m_EOF_synthetic/grid_metadata",
+        "cropped_nc_folder": "",
+        "ref_date": "2025-01-01 0:0:0",
+        "dt": 7,
+        "endian": ">",
+        "rotation_in_degrees":40
     }
   }
 }
