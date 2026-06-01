@@ -78,12 +78,12 @@
         "endian": ">",
         "rotation_in_degrees":40
     },
-    "neuchatel_EOF":{
-        "datapath": "/storage/alplakes_test/neuchatel_100m_EOF_synthetic/outputs",
-        "gridpath": "/storage/alplakes_test/neuchatel_100m_EOF_synthetic/grid_metadata",
+    "zug_2025":{
+        "datapath": "/storage/alplakes_test/zug_100m_2025/outputs",
+        "gridpath": "/storage/alplakes_test/zug_100m_2025/grid_metadata",
         "cropped_nc_folder": "",
         "ref_date": "2025-01-01 0:0:0",
-        "dt": 7,
+        "dt": 15,
         "endian": ">",
         "rotation_in_degrees":40
     }
