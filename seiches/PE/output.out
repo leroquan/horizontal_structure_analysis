@@ -1,4 +1,0 @@
-/home/leroquan@eawag.wroot.emp-eaw.ch/miniconda3/envs/horizontal_structures/lib/python3.11/site-packages/pylake/pylake.py:3: UserWarning: The seawater library is deprecated! Please use gsw instead.
-  import seawater as sw
-/home/leroquan@eawag.wroot.emp-eaw.ch/miniconda3/envs/horizontal_structures/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py:981: UserWarning: This axis already has a converter set and is updating to a potentially incompatible converter
-  return ax.plot(*args, **kwds)

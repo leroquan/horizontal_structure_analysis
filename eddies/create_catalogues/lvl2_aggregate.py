@@ -6,7 +6,7 @@ import numpy as np
 from scipy.spatial import cKDTree
 
 
-lake = 'neuchatel'
+lake = 'geneva'
 folder_path = rf"/storage/alplakes_test/{lake}_100m_2025/outputs_swirl"
 input_folder = os.path.join(folder_path, "eddy_catalogues_final")
 
@@ -27,7 +27,7 @@ level1_data = pd.read_csv(level1_csv_path)
 
 level1_data = level1_data.copy()
 level1_data['parsed_date'] = pd.to_datetime(level1_data['date'])
-
+level1_data['time_index'] = level1_data['time_index'].round(0).astype(int)
 
 # # Create catalogue lvl2
 

@@ -15,7 +15,7 @@ sys.path.append('..//')
 from utils_mitgcm import open_mitgcm_ds_from_config
 from utils_energy_analysis import *
 
-lake = 'neuchatel'
+lake = 'zug'
 base_folder = rf"/storage/alplakes_test/{lake}_100m_2025"
 output_folder = os.path.join(base_folder, 'wind_analysis')
 os.makedirs(output_folder, exist_ok=True)

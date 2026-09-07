@@ -100,3 +100,69 @@ def compute_fft_period(fft_freq):
     """Convert FFT frequency array to period (1/f), with inf at f=0."""
     with np.errstate(divide="ignore", invalid="ignore"):
         return np.where(fft_freq != 0, 1 / fft_freq, np.inf)
+
+
+from scipy.signal.windows import dpss
+import matplotlib.pyplot as plt
+from matplotlib.ticker import LogLocator, LogFormatter
+import numpy as np
+def rotary_psd(u, v, f, dt=1.0, NW=3, K=5, plot=True):
+    """
+    Compute rotary PSD for 2D vector time series (u, v) with multitaper.
+    Works for odd or even length signals.
+    """
+    z = np.asarray(u) + 1j*np.asarray(v)
+    n = len(z)
+
+    # Generate DPSS tapers
+    tapers = dpss(n, NW, Kmax=K)
+
+    # FFT length
+    nfft = n
+    pos_len = nfft // 2 if n % 2 == 0 else nfft // 2 + 1  # number of positive freqs
+
+    # Initialize spectra
+    Spp = np.zeros(pos_len)
+    Snn = np.zeros(pos_len)
+
+    # Loop over tapers
+    for k in range(K):
+        tapered = z * tapers[k]
+        Z = np.fft.fft(tapered)/n
+        Spp += np.abs(Z[:pos_len])**2
+        Snn += np.abs(Z[-pos_len:][::-1])**2  # flip negative freqs to match pos axis
+
+    Spp /= K
+    Snn /= K
+
+    # Frequency axis (positive)
+    freqs_pos = np.fft.fftfreq(n, dt)[:pos_len]
+
+    # Plot
+    if plot:
+        fig, ax = plt.subplots(1,1, figsize=(8,5))
+
+        ax.loglog(freqs_pos, Spp, label='Positive (CW)')
+        ax.loglog(freqs_pos, Snn, label='Negative (CCW)')
+
+        ax.vlines(f, 0, Spp.max(), linestyle='--', color='k', label='Coriolis Frequency')
+
+        ax.xaxis.set_major_locator(LogLocator(base=10, subs=np.arange(1,10,3)))
+
+        # Create a secondary x-axis for period in hours
+        secax = ax.secondary_xaxis('top')
+        secax.set_xscale('log')
+        secax.set_xlabel('Period (hours)')
+        secax.set_xticks(ax.get_xticks())
+        secax.set_xticklabels([f'{int(x):d}' for x in compute_fft_period(ax.get_xticks()) / 3600])
+
+
+        plt.xlabel('Frequency [Hz]')
+        plt.ylabel('PSD [unit^2/Hz]')
+        plt.title('Rotary Power Spectral Density')
+        plt.legend()
+        plt.grid(True, which='both', linestyle='--', alpha=0.5)
+        plt.tight_layout()
+        plt.show()
+
+    return freqs_pos, Spp, Snn

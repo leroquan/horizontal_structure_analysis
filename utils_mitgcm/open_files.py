@@ -46,7 +46,7 @@ def open_mitgcm_ds_from_config(config_path, model):
 
 
 def align_coordinates(ds):
-    horizontal_resolution = ds.dxC.isel(XG=100, YC=40).values
+    horizontal_resolution = 100
     ds['YG'] = np.arange(0, len(ds['YG'])) * horizontal_resolution
     ds['XG'] = np.arange(0, len(ds['XG'])) * horizontal_resolution
     ds['YC'] = np.arange(1, len(ds['YC'])+1) * horizontal_resolution - horizontal_resolution/2
@@ -62,3 +62,12 @@ def align_coordinates(ds):
     aligned_w['Z'] = ds['Z']
 
     return ds, aligned_u, aligned_v, aligned_w
+
+
+def repair_coord(ds, grid_resolution):
+    ds['YC'] = np.arange(1, len(ds['YC'])+1) * grid_resolution - grid_resolution/2
+    ds['XC'] = np.arange(1, len(ds['XC'])+1) * grid_resolution - grid_resolution/2
+    ds['YG'] = np.arange(0, len(ds['YG'])) * grid_resolution
+    ds['XG'] = np.arange(0, len(ds['XG'])) * grid_resolution
+
+    return ds
