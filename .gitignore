@@ -1,1 +1,3 @@
 *.cpython-311.pyc
+eddies/__pycache__/*
+*.out
