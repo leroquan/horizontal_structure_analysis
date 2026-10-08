@@ -6,7 +6,7 @@ import numpy as np
 from scipy.spatial import cKDTree
 
 
-lake = 'geneva'
+lake = 'lucerne'
 folder_path = rf"/storage/alplakes_test/{lake}_100m_2025/outputs_swirl"
 input_folder = os.path.join(folder_path, "eddy_catalogues_final")
 
