@@ -15,8 +15,9 @@ The figure uses:
 
 - MITgcm `Depth` for the translucent lakebed and surface shoreline.
 - The actual `i_eddy_cells` / `j_eddy_cells` from `lvl0.csv`, rendered as
-  colored cell sheets at each detection depth (orange clockwise, green
-  anticlockwise). These are sampled layers, not interpolated eddy volumes.
+  pale, translucent cell sheets at each detection depth (gold clockwise,
+  mint anticlockwise). These are sampled layers, not interpolated eddy volumes;
+  their subdued colors keep the red/blue isotherm easier to read.
 - `UVEL` / `VVEL` from the exact matching `3Dsnaps` output, averaged from
   their bounding staggered faces onto cell centers. Dry faces are closed.
   Vertical velocity is not shown. Arrows use the nearest model levels to
@@ -52,3 +53,39 @@ For a Python environment with the dependencies installed, the CLI is:
 ```bash
 python plot_3d_eddies.py --time '2025-09-17 00:30:00' --model lucerne_2025
 ```
+
+## Figure size and optional layers
+
+The notebook defaults to 1,000 pixels tall and fills the available width.
+Set `figure_height` and optionally `figure_width` to change this.
+Four independent settings control which layers are built:
+
+- `show_velocity`: colored horizontal speed slices at `arrow_depths` (m/s).
+- `show_arrows`: horizontal current direction/speed arrows.
+- `show_eddies`: catalogue cell sheets; skips catalogue access when false.
+- `show_thermocline`: the existing median-temperature isotherm proxy; skips
+  temperature processing and modal h1 lookup when false.
+
+Enabled layers can also be hidden and shown through the legend. Both eddy
+rotations form one toggle group, as do all velocity slices. These settings
+also apply to the date slider. Thermocline and speed colorbars occupy
+separate positions. The thermocline proxy retains the existing isotherm
+calculation; it is not a new local maximum-gradient thermocline estimate.
+
+Eddy sheets now include side walls along each detected footprint boundary.
+Walls span the corresponding MITgcm `RF` cell interfaces and stop at the
+lakebed in partial bottom cells. Internal horizontal cell edges have no walls.
+Opacity is 0.65 with face shading, making layers easier to see edge-on.
+These walls depict the grid-layer thickness, not an interpolated eddy volume.
+
+The upper panel plots total lake kinetic energy in MJ from
+`outputs_swirl/ke_eddy/ke_lake.csv`, relative to the configured model directory.
+It retains every CSV sample in the selected date window. A red marker follows
+the exact displayed snapshot during date-slider changes and playback. Missing
+or nonfinite energy at a displayed date raises an error rather than substituting
+a nearby value. A zero-day window shows only the selected snapshot. The panel
+adds 230 pixels to the requested figure height.
+The same panel includes eddy KE (orange) on a separate right-hand MJ axis,
+using `ke_eddy.csv` when present or `ke_eddies.csv` otherwise, with column
+`kinetic_energy_eddy_[MJ]`. Lake KE remains on the blue left axis and retains
+the synchronized red date marker. Both curves use the same selected window.
